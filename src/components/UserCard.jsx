@@ -10,7 +10,7 @@ export const UserCard = ({
   Email,
 }) => {
   return (
-    <div key={UserId}>
+    <div className=" border-cyan-600 border-2 margin-auto" key={UserId}>
       <h2>User: </h2>
       <p>{UserId}</p>
       <p>{firstname}</p>

@@ -3,6 +3,7 @@ import users from "../data/users.json";
 import "./App.css";
 import { sortList, calculateAvgNameLength } from "./helpers";
 import { SortDropdown, UserFilter, UserCard } from "./components";
+import { PulseLoader } from "react-spinners";
 
 function App() {
   const [usersList, setUsersList] = useState([]);
@@ -52,24 +53,29 @@ function App() {
   return (
     <div>
       {loading ? (
-        <div>Loading your users...</div>
+        <>
+          <div>Loading your users...</div>
+          <PulseLoader />
+        </>
       ) : error ? (
         <div>There was an error loading your users</div>
       ) : (
-        <div>
+        <div className="my-8 mx-8 border-cyan-600 border-2 flex flex-col">
           <UserFilter value={filter} onChange={setFilter} />
           <SortDropdown value={sortOption} onChange={setSortOption} />
-          <div>
+          <div className="p-4 mx-4 lg:mx-24 my-8 border-cyan-600 border-2">
             <p>Number of filtered users: {filteredList.length}</p>
           </div>
-          <div>
+          <div className="p-4 mx-4 lg:mx-24 my-8 border-cyan-600 border-2">
             <p>
               Average username length: {calculateAvgNameLength(filteredList)}
             </p>
           </div>
-          {filteredList?.map((user) => (
-            <UserCard {...user} />
-          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mx-4">
+            {filteredList?.map((user) => (
+              <UserCard {...user} />
+            ))}
+          </div>
         </div>
       )}
     </div>
